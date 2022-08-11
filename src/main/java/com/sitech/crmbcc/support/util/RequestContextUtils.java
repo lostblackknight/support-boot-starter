@@ -43,4 +43,20 @@ public class RequestContextUtils {
         }
         throw new RequestContextException("当前请求的上下文不是 ServletContext");
     }
+
+    public static String getMethod() {
+        return getRequest().getMethod();
+    }
+
+    public static String getRequestURI() {
+        return getRequest().getRequestURI();
+    }
+
+    public static String getIpAddress() {
+        return IPUtils.getClientIpAddress(getRequest());
+    }
+
+    public static String getHeader(String name) {
+        return getRequest().getHeader(name);
+    }
 }

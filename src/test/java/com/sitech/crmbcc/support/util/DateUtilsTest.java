@@ -1,11 +1,8 @@
 package com.sitech.crmbcc.support.util;
 
-import cn.hutool.core.date.DateUtil;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @author chensixiang (chensixiang1234@gmail.com)
@@ -45,8 +42,6 @@ class DateUtilsTest {
 
     @Test
     void nextMonth() {
-        System.out.println(DateUtil.beginOfYear(new Date()));
-        System.out.println(DateUtil.endOfYear(new Date()));
     }
 
     @Test
@@ -60,7 +55,6 @@ class DateUtilsTest {
 
     @Test
     void hour() {
-        System.out.println(DateUtil.hour(new Date(2022, Calendar.JUNE, 25, 12, 15), false));
         System.out.println(DateUtils.hour(DateUtils.current()));
     }
 
@@ -129,7 +123,6 @@ class DateUtilsTest {
     @Test
     void millisecond() {
         System.out.println(DateUtils.millisecond(LocalDateTime.now()));
-        System.out.println(DateUtil.millisecond(new Date()));
     }
 
     @Test
@@ -243,14 +236,11 @@ class DateUtilsTest {
 
     @Test
     void beginOfYear() {
-        System.out.println(DateUtil.beginOfYear(new Date()));
-        System.out.println(DateUtils.firstDayOfYear(LocalDateTime.now()));
     }
 
     @Test
     void endOfYear() {
         System.out.println(DateUtils.lastDayOfYear(LocalDateTime.now()));
-        System.out.println(DateUtil.endOfYear(new Date()));
     }
 
     @Test
@@ -283,31 +273,26 @@ class DateUtilsTest {
 
     @Test
     void isLeapYear() {
-        System.out.println(DateUtil.isLeapYear(2008));
         System.out.println(DateUtils.isLeapYear(2008));
     }
 
     @Test
     void lengthOfYear() {
         System.out.println(DateUtils.lengthOfYear(2022));
-        System.out.println(DateUtil.lengthOfYear(2022));
     }
 
     @Test
     void betweenYear() {
-        System.out.println(DateUtil.betweenYear(new Date(2021, 8, 10), new Date(), true));
     }
 
     @Test
     void firstDayOfMonth() {
         System.out.println(DateUtils.firstDayOfMonth(LocalDateTime.now()));
-        System.out.println(DateUtil.beginOfMonth(new Date()));
     }
 
     @Test
     void lastDayOfMonth() {
         System.out.println(DateUtils.lastDayOfMonth(LocalDateTime.now()));
-        System.out.println(DateUtil.endOfMonth(new Date()));
     }
 
     @Test
