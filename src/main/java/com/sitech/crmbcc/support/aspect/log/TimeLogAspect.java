@@ -1,34 +1,44 @@
-package com.sitech.crmbcc.support.aspect;
+package com.sitech.crmbcc.support.aspect.log;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sitech.crmbcc.support.annotation.TimeLog;
-import lombok.Data;
+import com.sitech.crmbcc.support.annotation.log.TimeLog;
+import com.sitech.crmbcc.support.handler.LogHandler;
+import com.sitech.crmbcc.support.model.log.TimeLogModel;
+import com.sitech.crmbcc.support.properties.LogProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 
 /**
- * 耗时日志切面
- * <p>相关：{@link TimeLog}
+ * 耗时日志切面，实现了 {@link Ordered} 接口，支持切面的排序。
  *
  * @author chensixiang (chensixiang1234@gmail.com)
+ * @see TimeLog
+ * @see Ordered
  * @since 2022/8/10 20:15
  */
 @Slf4j
 @Aspect
-public class TimeLogAspect {
+public class TimeLogAspect implements Ordered {
 
-    @Around("@annotation(com.sitech.crmbcc.support.annotation.TimeLog)")
+    private final List<LogHandler> logHandlers;
+
+    private final LogProperties.TimeLog timeLogProperties;
+
+    public TimeLogAspect(List<LogHandler> logHandlers, LogProperties.TimeLog timeLogProperties) {
+        this.logHandlers = logHandlers;
+        this.timeLogProperties = timeLogProperties;
+    }
+
+    @Around("@annotation(com.sitech.crmbcc.support.annotation.log.TimeLog)")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         final long start = System.currentTimeMillis();
 
@@ -53,12 +63,12 @@ public class TimeLogAspect {
                 model.setMethodName(methodName);
             }
             if (timeLog.showStartTime()) {
-                model.setStartTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(start),
-                        ZoneId.systemDefault()).toString());
+                model.setStartTime(new Date(start));
             }
         }
 
         final Object retVal;
+
         try {
             retVal = pjp.proceed();
 
@@ -67,19 +77,22 @@ public class TimeLogAspect {
 
             if (!ObjectUtils.isEmpty(timeLog)) {
                 if (timeLog.showEndTime()) {
-                    model.setEndTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(end),
-                            ZoneId.systemDefault()).toString());
+                    model.setEndTime(new Date(end));
                 }
                 if (timeLog.showTotalTime()) {
                     model.setTotalTime(totalTime);
                 }
                 if (timeLogModelNotEmpty(model)) {
-                    log.info(new ObjectMapper().writeValueAsString(model));
+                    for (LogHandler logHandler : logHandlers) {
+                        logHandler.handle(model);
+                    }
                 }
             }
         } catch (Throwable e) {
             if (timeLogModelNotEmpty(model)) {
-                log.error(new ObjectMapper().writeValueAsString(model));
+                for (LogHandler logHandler : logHandlers) {
+                    logHandler.errorHandle(model);
+                }
             }
             throw e;
         }
@@ -90,14 +103,8 @@ public class TimeLogAspect {
         return !ObjectUtils.isEmpty(model) && !model.equals(new TimeLogModel());
     }
 
-    @Data
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private static class TimeLogModel {
-        private String description;
-        private String className;
-        private String methodName;
-        private String startTime;
-        private String endTime;
-        private String totalTime;
+    @Override
+    public int getOrder() {
+        return timeLogProperties.getAspectOrder();
     }
 }

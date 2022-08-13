@@ -1,35 +1,47 @@
-package com.sitech.crmbcc.support.aspect;
+package com.sitech.crmbcc.support.aspect.log;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sitech.crmbcc.support.annotation.RequestLog;
+import com.sitech.crmbcc.support.annotation.log.RequestLog;
+import com.sitech.crmbcc.support.handler.LogHandler;
+import com.sitech.crmbcc.support.model.log.RequestLogModel;
+import com.sitech.crmbcc.support.properties.LogProperties;
 import com.sitech.crmbcc.support.util.RequestContextUtils;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * 请求日志切面
- * <p>相关：{@link RequestLog}
+ * 请求日志切面，实现了 {@link Ordered} 接口，支持切面的排序。
  *
  * @author chensixiang (chensixiang1234@gmail.com)
+ * @see RequestLog
+ * @see Ordered
  * @since 2022/8/10 10:39
  */
 @Slf4j
 @Aspect
-public class RequestLogAspect {
+public class RequestLogAspect implements Ordered {
 
-    @Around("@within(com.sitech.crmbcc.support.annotation.RequestLog)" +
-            " || @annotation(com.sitech.crmbcc.support.annotation.RequestLog)")
+    private final List<LogHandler> logHandlers;
+
+    private final LogProperties.RequestLog requestLogProperties;
+
+    public RequestLogAspect(List<LogHandler> logHandlers, LogProperties.RequestLog requestLogProperties) {
+        this.logHandlers = logHandlers;
+        this.requestLogProperties = requestLogProperties;
+    }
+
+    @Around("@within(com.sitech.crmbcc.support.annotation.log.RequestLog)" +
+            " || @annotation(com.sitech.crmbcc.support.annotation.log.RequestLog)")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         final long start = System.currentTimeMillis();
 
@@ -88,6 +100,7 @@ public class RequestLogAspect {
         }
 
         final Object retVal;
+
         try {
             retVal = pjp.proceed();
 
@@ -114,7 +127,9 @@ public class RequestLogAspect {
                     }
                 }
                 if (requestLogModelNotEmpty(model)) {
-                    log.info(new ObjectMapper().writeValueAsString(model));
+                    for (LogHandler logHandler : logHandlers) {
+                        logHandler.handle(model);
+                    }
                 }
             } else {
                 // 类上没注解
@@ -127,13 +142,17 @@ public class RequestLogAspect {
                         model.setTotalTime(totalTime);
                     }
                     if (requestLogModelNotEmpty(model)) {
-                        log.info(new ObjectMapper().writeValueAsString(model));
+                        for (LogHandler logHandler : logHandlers) {
+                            logHandler.handle(model);
+                        }
                     }
                 }
             }
         } catch (Throwable e) {
             if (requestLogModelNotEmpty(model)) {
-                log.error(new ObjectMapper().writeValueAsString(model));
+                for (LogHandler logHandler : logHandlers) {
+                    logHandler.errorHandle(model);
+                }
             }
             throw e;
         }
@@ -173,17 +192,8 @@ public class RequestLogAspect {
         }
     }
 
-    @Data
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private static class RequestLogModel {
-        private String description;
-        private String ipAddress;
-        private String method;
-        private String requestURI;
-        private Map<Object, Object> requestParam;
-        private Object responseParam;
-        private String className;
-        private String methodName;
-        private String totalTime;
+    @Override
+    public int getOrder() {
+        return requestLogProperties.getAspectOrder();
     }
 }
