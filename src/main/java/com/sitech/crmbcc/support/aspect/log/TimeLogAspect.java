@@ -56,13 +56,13 @@ public class TimeLogAspect implements Ordered {
             if (StringUtils.hasLength(timeLog.description())) {
                 model.setDescription(timeLog.description());
             }
-            if (timeLog.showClassName()) {
+            if (timeLogProperties.getGlobal().isShowClassName() && timeLog.showClassName()) {
                 model.setClassName(className);
             }
-            if (timeLog.showMethodName()) {
+            if (timeLogProperties.getGlobal().isShowMethodName() && timeLog.showMethodName()) {
                 model.setMethodName(methodName);
             }
-            if (timeLog.showStartTime()) {
+            if (timeLogProperties.getGlobal().isShowStartTime() && timeLog.showStartTime()) {
                 model.setStartTime(new Date(start));
             }
         }
@@ -76,10 +76,10 @@ public class TimeLogAspect implements Ordered {
             final String totalTime = (end - start) + "ms";
 
             if (!ObjectUtils.isEmpty(timeLog)) {
-                if (timeLog.showEndTime()) {
+                if (timeLogProperties.getGlobal().isShowEndTime() && timeLog.showEndTime()) {
                     model.setEndTime(new Date(end));
                 }
-                if (timeLog.showTotalTime()) {
+                if (timeLogProperties.getGlobal().isShowTotalTime() && timeLog.showTotalTime()) {
                     model.setTotalTime(totalTime);
                 }
                 if (timeLogModelNotEmpty(model)) {

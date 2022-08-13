@@ -111,18 +111,18 @@ public class RequestLogAspect implements Ordered {
                 // 类上有注解
                 if (!ObjectUtils.isEmpty(requestLogOnMethod)) {
                     // 方法上有注解
-                    if (requestLogOnMethod.showResponseParam()) {
+                    if (requestLogProperties.getGlobal().isShowResponseParam() && requestLogOnMethod.showResponseParam()) {
                         model.setResponseParam(retVal);
                     }
-                    if (requestLogOnMethod.showTotalTime()) {
+                    if (requestLogProperties.getGlobal().isShowTotalTime() && requestLogOnMethod.showTotalTime()) {
                         model.setTotalTime(totalTime);
                     }
                 } else {
                     // 方法上没有注解
-                    if (requestLogOnClass.showResponseParam()) {
+                    if (requestLogProperties.getGlobal().isShowResponseParam() && requestLogOnClass.showResponseParam()) {
                         model.setResponseParam(retVal);
                     }
-                    if (requestLogOnClass.showTotalTime()) {
+                    if (requestLogProperties.getGlobal().isShowTotalTime() && requestLogOnClass.showTotalTime()) {
                         model.setTotalTime(totalTime);
                     }
                 }
@@ -135,10 +135,10 @@ public class RequestLogAspect implements Ordered {
                 // 类上没注解
                 if (!ObjectUtils.isEmpty(requestLogOnMethod)) {
                     // 方法上有注解
-                    if (requestLogOnMethod.showResponseParam()) {
+                    if (requestLogProperties.getGlobal().isShowResponseParam() && requestLogOnMethod.showResponseParam()) {
                         model.setResponseParam(retVal);
                     }
-                    if (requestLogOnMethod.showTotalTime()) {
+                    if (requestLogProperties.getGlobal().isShowTotalTime() && requestLogOnMethod.showTotalTime()) {
                         model.setTotalTime(totalTime);
                     }
                     if (requestLogModelNotEmpty(model)) {
@@ -172,22 +172,22 @@ public class RequestLogAspect implements Ordered {
                                       String requestURI,
                                       String className,
                                       String methodName) {
-        if (requestLog.showIpAddress()) {
+        if (requestLogProperties.getGlobal().isShowIpAddress() && requestLog.showIpAddress()) {
             model.setIpAddress(ipAddress);
         }
-        if (requestLog.showMethod()) {
+        if (requestLogProperties.getGlobal().isShowMethod() && requestLog.showMethod()) {
             model.setMethod(method);
         }
-        if (requestLog.showRequestURI()) {
+        if (requestLogProperties.getGlobal().isShowRequestURI() && requestLog.showRequestURI()) {
             model.setRequestURI(requestURI);
         }
-        if (requestLog.showRequestParam()) {
+        if (requestLogProperties.getGlobal().isShowRequestParam() && requestLog.showRequestParam()) {
             model.setRequestParam(requestParam);
         }
-        if (requestLog.showClassName()) {
+        if (requestLogProperties.getGlobal().isShowClassName() && requestLog.showClassName()) {
             model.setClassName(className);
         }
-        if (requestLog.showMethodName()) {
+        if (requestLogProperties.getGlobal().isShowMethodName() && requestLog.showMethodName()) {
             model.setMethodName(methodName);
         }
     }
