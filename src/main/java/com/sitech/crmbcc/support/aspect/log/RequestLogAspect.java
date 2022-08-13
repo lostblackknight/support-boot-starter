@@ -5,7 +5,6 @@ import com.sitech.crmbcc.support.handler.LogHandler;
 import com.sitech.crmbcc.support.model.log.RequestLogModel;
 import com.sitech.crmbcc.support.properties.LogProperties;
 import com.sitech.crmbcc.support.util.RequestContextUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,7 +26,6 @@ import java.util.Map;
  * @see Ordered
  * @since 2022/8/10 10:39
  */
-@Slf4j
 @Aspect
 public class RequestLogAspect implements Ordered {
 

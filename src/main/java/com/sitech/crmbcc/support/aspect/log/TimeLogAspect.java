@@ -4,7 +4,6 @@ import com.sitech.crmbcc.support.annotation.log.TimeLog;
 import com.sitech.crmbcc.support.handler.LogHandler;
 import com.sitech.crmbcc.support.model.log.TimeLogModel;
 import com.sitech.crmbcc.support.properties.LogProperties;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,7 +24,6 @@ import java.util.List;
  * @see Ordered
  * @since 2022/8/10 20:15
  */
-@Slf4j
 @Aspect
 public class TimeLogAspect implements Ordered {
 
