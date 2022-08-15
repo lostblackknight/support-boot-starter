@@ -1,7 +1,6 @@
 package com.sitech.crmbcc.support.util.web;
 
 import com.sitech.crmbcc.support.exception.web.RequestContextException;
-import com.sitech.crmbcc.support.util.web.IPUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
