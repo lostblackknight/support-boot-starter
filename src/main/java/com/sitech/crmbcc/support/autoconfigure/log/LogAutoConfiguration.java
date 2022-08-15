@@ -1,11 +1,11 @@
-package com.sitech.crmbcc.support.autoconfigure;
+package com.sitech.crmbcc.support.autoconfigure.log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sitech.crmbcc.support.aspect.log.RequestLogAspect;
 import com.sitech.crmbcc.support.aspect.log.TimeLogAspect;
-import com.sitech.crmbcc.support.handler.LogHandler;
 import com.sitech.crmbcc.support.handler.log.DefaultRequestLogHandler;
 import com.sitech.crmbcc.support.handler.log.DefaultTimeLogHandler;
+import com.sitech.crmbcc.support.handler.log.LogHandler;
 import com.sitech.crmbcc.support.properties.LogProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
@@ -36,16 +36,22 @@ public class LogAutoConfiguration {
 
     private final LogProperties logProperties;
 
-    private final ObjectMapper objectMapper;
-
-    public LogAutoConfiguration(LogProperties logProperties, ObjectMapper objectMapper) {
+    public LogAutoConfiguration(LogProperties logProperties) {
         this.logProperties = logProperties;
-        this.objectMapper = objectMapper;
     }
 
+    /**
+     * 请求日志自动配置。
+     */
     @Configuration
     @ConditionalOnProperty(prefix = "support.log.request", name = "enable", havingValue = "true", matchIfMissing = true)
     public class RequestLogAutoConfiguration {
+
+        private final ObjectMapper objectMapper;
+
+        public RequestLogAutoConfiguration(ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
+        }
 
         @Bean
         public RequestLogAspect requestLogAspect(List<LogHandler> logHandlers) {
@@ -59,9 +65,18 @@ public class LogAutoConfiguration {
         }
     }
 
+    /**
+     * 耗时日志自动配置。
+     */
     @Configuration
     @ConditionalOnProperty(prefix = "support.log.time", name = "enable", havingValue = "true", matchIfMissing = true)
     public class TimeLogAutoConfiguration {
+
+        private final ObjectMapper objectMapper;
+
+        public TimeLogAutoConfiguration(ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
+        }
 
         @Bean
         public TimeLogAspect timeLogAspect(List<LogHandler> logHandlers) {

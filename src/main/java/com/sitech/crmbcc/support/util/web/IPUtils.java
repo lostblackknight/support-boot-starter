@@ -1,11 +1,11 @@
-package com.sitech.crmbcc.support.util;
+package com.sitech.crmbcc.support.util.web;
 
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * IP 工具类
+ * IP 工具类。
  *
  * @author chensixiang (chensixiang1234@gmail.com)
  * @since 2022/8/10 11:02

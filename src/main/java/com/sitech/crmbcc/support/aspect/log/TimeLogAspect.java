@@ -1,7 +1,7 @@
 package com.sitech.crmbcc.support.aspect.log;
 
 import com.sitech.crmbcc.support.annotation.log.TimeLog;
-import com.sitech.crmbcc.support.handler.LogHandler;
+import com.sitech.crmbcc.support.handler.log.LogHandler;
 import com.sitech.crmbcc.support.model.log.TimeLogModel;
 import com.sitech.crmbcc.support.properties.LogProperties;
 import org.aspectj.lang.ProceedingJoinPoint;

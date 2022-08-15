@@ -2,7 +2,6 @@ package com.sitech.crmbcc.support.handler.log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sitech.crmbcc.support.annotation.log.RequestLog;
-import com.sitech.crmbcc.support.handler.LogHandler;
 import com.sitech.crmbcc.support.model.log.LogModel;
 import com.sitech.crmbcc.support.model.log.RequestLogModel;
 import com.sitech.crmbcc.support.properties.LogProperties;

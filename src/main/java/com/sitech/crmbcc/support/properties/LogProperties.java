@@ -1,6 +1,6 @@
 package com.sitech.crmbcc.support.properties;
 
-import com.sitech.crmbcc.support.autoconfigure.LogAutoConfiguration;
+import com.sitech.crmbcc.support.autoconfigure.log.LogAutoConfiguration;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

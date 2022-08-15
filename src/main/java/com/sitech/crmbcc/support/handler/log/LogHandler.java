@@ -1,4 +1,4 @@
-package com.sitech.crmbcc.support.handler;
+package com.sitech.crmbcc.support.handler.log;
 
 import com.sitech.crmbcc.support.model.log.LogModel;
 import org.springframework.core.Ordered;

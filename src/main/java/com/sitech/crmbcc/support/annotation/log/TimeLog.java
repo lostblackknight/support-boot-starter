@@ -1,8 +1,8 @@
 package com.sitech.crmbcc.support.annotation.log;
 
 import com.sitech.crmbcc.support.aspect.log.TimeLogAspect;
-import com.sitech.crmbcc.support.handler.LogHandler;
 import com.sitech.crmbcc.support.handler.log.DefaultTimeLogHandler;
+import com.sitech.crmbcc.support.handler.log.LogHandler;
 import com.sitech.crmbcc.support.model.log.LogModel;
 import com.sitech.crmbcc.support.model.log.TimeLogModel;
 import org.springframework.core.annotation.AliasFor;

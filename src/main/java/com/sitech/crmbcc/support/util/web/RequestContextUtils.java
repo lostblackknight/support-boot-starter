@@ -1,6 +1,7 @@
-package com.sitech.crmbcc.support.util;
+package com.sitech.crmbcc.support.util.web;
 
-import com.sitech.crmbcc.support.exception.RequestContextException;
+import com.sitech.crmbcc.support.exception.web.RequestContextException;
+import com.sitech.crmbcc.support.util.web.IPUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 请求上下文工具类
+ * 请求上下文工具类。
  *
  * @author chensixiang (chensixiang1234@gmail.com)
  * @since 2022/8/10 10:41

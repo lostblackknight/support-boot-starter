@@ -1,4 +1,4 @@
-package com.sitech.crmbcc.support.exception;
+package com.sitech.crmbcc.support.exception.web;
 
 /**
  * 请求上下文异常。
