@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import com.sitech.crmbcc.support.annotation.security.Desensitized;
 import com.sitech.crmbcc.support.enums.security.DesensitizedType;
 
@@ -39,6 +40,7 @@ public class DesensitizedAnnotationSensitiveSerializer extends JsonSerializer<St
                         throw new RuntimeException(e);
                     }
                 }
+                return new StringSerializer();
             }
             return prov.findValueSerializer(property.getType(), property);
         }
