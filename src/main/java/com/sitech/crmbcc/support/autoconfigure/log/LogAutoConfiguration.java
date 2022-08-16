@@ -36,6 +36,10 @@ public class LogAutoConfiguration {
 
     private final LogProperties logProperties;
 
+    public static final String REQUEST_LOG_HANDLER_BEAN_NAME = "requestLogHandler";
+
+    public static final String TIME_LOG_HANDLER_BEAN_NAME = "timeLogHandler";
+
     public LogAutoConfiguration(LogProperties logProperties) {
         this.logProperties = logProperties;
     }
@@ -59,7 +63,7 @@ public class LogAutoConfiguration {
         }
 
         @Bean
-        @ConditionalOnMissingBean(name = "requestLogHandler")
+        @ConditionalOnMissingBean(name = REQUEST_LOG_HANDLER_BEAN_NAME)
         public DefaultRequestLogHandler requestLogHandler() {
             return new DefaultRequestLogHandler(objectMapper, logProperties.getRequest());
         }
@@ -84,7 +88,7 @@ public class LogAutoConfiguration {
         }
 
         @Bean
-        @ConditionalOnMissingBean(name = "timeLogHandler")
+        @ConditionalOnMissingBean(name = TIME_LOG_HANDLER_BEAN_NAME)
         public DefaultTimeLogHandler timeLogHandler() {
             return new DefaultTimeLogHandler(objectMapper, logProperties.getTime());
         }
