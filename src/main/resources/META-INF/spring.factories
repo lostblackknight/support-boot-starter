@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.sitech.crmbcc.support.autoconfigure.LogAutoConfiguration
+  com.sitech.crmbcc.support.autoconfigure.log.LogAutoConfiguration, \
+  com.sitech.crmbcc.support.autoconfigure.security.SecurityAutoConfiguration
