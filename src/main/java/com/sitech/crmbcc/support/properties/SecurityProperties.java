@@ -38,10 +38,5 @@ public class SecurityProperties {
          * 敏感信息切面排序
          */
         private int aspectOrder = 0;
-
-        /**
-         * 是否开启 {@link Desensitized}
-         */
-        private boolean enableDesensitized = true;
     }
 }
