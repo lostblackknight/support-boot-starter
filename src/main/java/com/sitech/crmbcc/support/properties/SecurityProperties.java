@@ -1,6 +1,5 @@
 package com.sitech.crmbcc.support.properties;
 
-import com.sitech.crmbcc.support.annotation.security.Desensitized;
 import com.sitech.crmbcc.support.autoconfigure.security.SecurityAutoConfiguration;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
