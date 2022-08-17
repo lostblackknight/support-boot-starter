@@ -14,7 +14,7 @@
       - [ResponseEntity 类型的上游敏感信息处理器](#responseentity-类型的上游敏感信息处理器)
       - [ResponseEntity 类型的下游敏感信息处理器](#responseentity-类型的下游敏感信息处理器)
       - [注解脱敏 @Desensitized](#注解脱敏-desensitized)
-      - [自定义默认的 @Desensitized 的脱敏规则。](#自定义默认的-desensitized-的脱敏规则)
+      - [自定义默认的 @Desensitized 的脱敏规则](#自定义默认的-desensitized-的脱敏规则)
       - [全局配置](#全局配置)
     - [注意事项和使用建议](#注意事项和使用建议)
 
