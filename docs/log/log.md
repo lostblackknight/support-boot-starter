@@ -271,7 +271,7 @@ curl http://localhost:8080/requestLog/students/1
 
 1. 配置项。
 
-   ```yaml
+   ```properties
    support.log.auto=true
    support.log.request.enable=true
    support.log.request.aspect-order=0

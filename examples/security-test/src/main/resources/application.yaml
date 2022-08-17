@@ -1,0 +1,3 @@
+support.security.auto=true
+support.security.sensitive.enable=true
+support.security.sensitive.aspect-order=0
