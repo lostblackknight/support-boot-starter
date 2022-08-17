@@ -392,7 +392,7 @@ curl http://localhost:8080/sensitive/users/1
    }
    ```
 
-#### 自定义默认的 @Desensitized 的脱敏规则。
+#### 自定义默认的 @Desensitized 的脱敏规则
 
    1. 例子。
 

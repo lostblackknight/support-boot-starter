@@ -8,3 +8,4 @@
   - [请求日志](docs/log/log.md#请求日志)
   - [耗时日志](docs/log/log.md#耗时日志)
 - [安全](docs/security/security.md)
+  - [敏感信息处理](docs/security/security.md#敏感信息处理)
